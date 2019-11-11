@@ -23,7 +23,7 @@ data "azurerm_virtual_machine" "main" {
 resource "azurerm_virtual_machine_extension" "linux" {
   count                      = "${lower(var.os_type) == "linux" ? 1 : 0}"
   name                       = "${var.virtual_machine_name}-run-command"
-  location                   = "${data.azurerm_resource_group.main.location}"
+  location                   = "${data.azurerm_virtual_machine.main.location}"
   resource_group_name        = "${data.azurerm_resource_group.main.name}"
   virtual_machine_name       = "${data.azurerm_virtual_machine.main.name}"
   publisher                  = "Microsoft.CPlat.Core"
@@ -37,7 +37,7 @@ resource "azurerm_virtual_machine_extension" "linux" {
 resource "azurerm_virtual_machine_extension" "windows" {
   count                      = "${lower(var.os_type) == "windows" ? 1 : 0}"
   name                       = "${var.virtual_machine_name}-run-command"
-  location                   = "${data.azurerm_resource_group.main.location}"
+  location                   = "${data.azurerm_virtual_machine.main.location}"
   resource_group_name        = "${data.azurerm_resource_group.main.name}"
   virtual_machine_name       = "${data.azurerm_virtual_machine.main.name}"
   publisher                  = "Microsoft.CPlat.Core"
