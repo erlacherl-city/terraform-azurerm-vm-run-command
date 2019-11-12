@@ -9,6 +9,11 @@ locals {
     fileUris         = "${var.file_uris}"
     script           = "${base64encode(var.script)}"
   }
+
+  # settings_linux = {
+  #   commandToExecute = "${var.command}"
+  #   fileUris         = "${var.file_uris}"
+  # }
 }
 
 data "azurerm_resource_group" "main" {
@@ -26,9 +31,9 @@ resource "azurerm_virtual_machine_extension" "linux" {
   location                   = "${var.virtual_machine_location}"
   resource_group_name        = "${data.azurerm_resource_group.main.name}"
   virtual_machine_name       = "${data.azurerm_virtual_machine.main.name}"
-  publisher                  = "Microsoft.CPlat.Core"
-  type                       = "RunCommandLinux"
-  type_handler_version       = "1.0"
+  publisher                  = "Microsoft.Azure.Extensions"
+  type                       = "CustomScript"
+  type_handler_version       = "2.0"
   auto_upgrade_minor_version = true
   protected_settings         = "${jsonencode(local.settings_linux)}"
   tags                       = "${var.tags}"
