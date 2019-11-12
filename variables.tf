@@ -6,6 +6,10 @@ variable "virtual_machine_name" {
   description = "The name of the virtual machine."
 }
 
+variable "virtual_machine_location" {
+  description = "The location of the virtual machine."
+}
+
 variable "os_type" {
   description = "Specifies the operating system type."
 }
